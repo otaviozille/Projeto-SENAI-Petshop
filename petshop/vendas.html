@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Paws - Loja</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Seu CSS personalizado -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #eafafa;
+      color: #333;
+    }
+
+    nav {
+      width: 250px;
+      background-color: #a2d5d3;
+      height: 100vh;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      text-align: center;
+    }
+
+    nav .logo img {
+      max-width: 60%;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      margin: 20px 0;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1.2em;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: #c4eceb;
+    }
+
+    main {
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #5aa6a4;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .produto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .produto .card-body {
+      text-align: center;
+    }
+
+    .produto .preco {
+      font-weight: bold;
+      color: #5aa6a4;
+    }
+
+    footer {
+      background-color: #a2d5d3;
+      padding: 20px;
+      text-align: center;
+      margin-top: 20px;
+      margin-left: 250px;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      main {
+        margin-left: 0;
+      }
+
+      footer {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <img alt="Logo Happy Paws" src="img/logo.png"/>
+    </div>
+    <ul>
+      <li><a href="cadastros.html">Cadastro de Clientes/Pets</a></li>
+      <li><a href="index.html">Pagina Inicial</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>Nossos Produtos</h2>
+
+    <!-- Filtros e Barra de Pesquisa -->
+    <div class="container mb-4">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <input type="text" id="barra-pesquisa" class="form-control" placeholder="Pesquisar produtos...">
+        </div>
+        <div class="col-md-3">
+          <select id="filtro-tipo" class="form-select">
+            <option value="">Todos os Tipos</option>
+            <option value="racao">Ração</option>
+            <option value="brinquedo">Brinquedos</option>
+            <option value="acessorio">Acessórios</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select id="filtro-preco" class="form-select">
+            <option value="">Todos os Preços</option>
+            <option value="0-50">Até R$ 50</option>
+            <option value="50-100">R$ 50 - R$ 100</option>
+            <option value="100-200">R$ 100 - R$ 200</option>
+            <option value="200+">Acima de R$ 200</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de Produtos -->
+    <div class="container">
+      <div class="row" id="lista-produtos">
+        <!-- Produtos serão carregados aqui via JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Happy Paws - Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Bootstrap JS e Dependências -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+  <script>
+    // Dados dos produtos
+    const produtos = [
+      { nome: "Ração para Cachorro", tipo: "racao", preco: 120, imagem: "img/racao-cachorro.jpg" },
+      { nome: "Ração para Gato", tipo: "racao", preco: 100, imagem: "img/racao-gato.jpg" },
+      { nome: "Brinquedo para Cachorro", tipo: "brinquedo", preco: 45, imagem: "img/brinquedo-cachorro.jpg" },
+      { nome: "Brinquedo para Gato", tipo: "brinquedo", preco: 35, imagem: "img/brinquedo-gato.jpg" },
+      { nome: "Coleira para Cachorro", tipo: "acessorio", preco: 60, imagem: "img/coleira-cachorro.jpg" },
+      { nome: "Arranhador para Gato", tipo: "acessorio", preco: 150, imagem: "img/arranhador-gato.jpg" },
+    ];
+
+    // Função para renderizar os produtos
+    function renderizarProdutos(produtosFiltrados) {
+      const listaProdutos = document.getElementById("lista-produtos");
+      listaProdutos.innerHTML = "";
+
+      produtosFiltrados.forEach(produto => {
+        const colProduto = document.createElement("div");
+        colProduto.className = "col-md-4 mb-4";
+        colProduto.innerHTML = `
+          <div class="card produto">
+            <img src="${produto.imagem}" class="card-img-top" alt="${produto.nome}">
+            <div class="card-body">
+              <h5 class="card-title">${produto.nome}</h5>
+              <p class="card-text preco">R$ ${produto.preco.toFixed(2)}</p>
+              <button class="btn btn-primary">Comprar</button>
+            </div>
+          </div>
+        `;
+        listaProdutos.appendChild(colProduto);
+      });
+    }
+
+    // Função para filtrar os produtos
+    function filtrarProdutos() {
+      const termoPesquisa = document.getElementById("barra-pesquisa").value.toLowerCase();
+      const tipoSelecionado = document.getElementById("filtro-tipo").value;
+      const precoSelecionado = document.getElementById("filtro-preco").value;
+
+      const produtosFiltrados = produtos.filter(produto => {
+        const correspondePesquisa = produto.nome.toLowerCase().includes(termoPesquisa);
+        const correspondeTipo = tipoSelecionado ? produto.tipo === tipoSelecionado : true;
+        const correspondePreco = precoSelecionado ? (
+          precoSelecionado === "0-50" ? produto.preco <= 50 :
+          precoSelecionado === "50-100" ? produto.preco > 50 && produto.preco <= 100 :
+          precoSelecionado === "100-200" ? produto.preco > 100 && produto.preco <= 200 :
+          produto.preco > 200
+        ) : true;
+
+        return correspondePesquisa && correspondeTipo && correspondePreco;
+      });
+
+      renderizarProdutos(produtosFiltrados);
+    }
+
+    // Adicionar eventos aos filtros e barra de pesquisa
+    document.getElementById("barra-pesquisa").addEventListener("input", filtrarProdutos);
+    document.getElementById("filtro-tipo").addEventListener("change", filtrarProdutos);
+    document.getElementById("filtro-preco").addEventListener("change", filtrarProdutos);
+
+    // Renderizar todos os produtos inicialmente
+    renderizarProdutos(produtos);
+  </script>
+
+<style>
+    body.dark-mode {
+     background-color: #060027;
+     color: #488c8a;
+   }
+   body.dark-mode #nossos-servicos p{
+     color: #488c8a;
+   }
+   .toggle-button {
+     position: fixed;
+     top: 10px;
+     right: 10px;
+     width: 50px;
+     height: 50px;
+     background-color: #eafafa;
+     border-radius: 50%;
+     
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     transition: background-color 0.3s ease, transform 0.3s ease;
+   }
+   
+   .toggle-button:hover {
+     transform: scale(1.1);
+     
+   }
+   
+   .toggle-button span {
+     font-size: 1.5rem;
+     transition: color 0.3s ease;
+   }
+   
+   body.dark-mode .toggle-button {
+     background-color: #060027;
+   }
+   
+   body.dark-mode .toggle-button span {
+     color: #f0f0f0;
+   }
+   
+     /* Ajuste da posição do botão no modo noturno em telas pequenas */
+     @media (max-width: 768px) {
+         .toggle-button {
+             top: 15px; /* Reduz o espaçamento superior em telas menores */
+             right: 15px; /* Reduz o espaçamento lateral em telas menores */
+         }
+     }
+ </style>
+ <script>
+   document.addEventListener('DOMContentLoaded', function () {
+     // Check for saved mode in LocalStorage and apply it
+     if (localStorage.getItem('darkMode') === 'enabled') {
+       document.body.classList.add('dark-mode');
+     }
+ 
+     // Create and configure the toggle button
+     const toggleButton = document.createElement('div');
+     toggleButton.className = 'toggle-button';
+     const icon = document.createElement('span');
+     icon.textContent = '☀️'; // Default icon (sun for light mode)
+     toggleButton.appendChild(icon);
+     toggleButton.onclick = function () {
+       document.body.classList.toggle('dark-mode');
+       const isDarkMode = document.body.classList.contains('dark-mode');
+       icon.textContent = isDarkMode ? '🌙' : '☀️'; // Toggle between sun and moon icons
+       
+       // Save the current mode to LocalStorage
+       if (isDarkMode) {
+         localStorage.setItem('darkMode', 'enabled');
+       } else {
+         localStorage.removeItem('darkMode');
+       }
+     };
+     document.body.appendChild(toggleButton);
+   });
+ </script>
+</body>
+</html>

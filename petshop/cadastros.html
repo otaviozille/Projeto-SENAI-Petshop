@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+<title>Cadastro</title>
+<style>
+        /* Estilos globais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eafafa; /* Azul claro pastel */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Menu lateral */
+        nav {
+          width: 250px;
+            background-color: #a2d5d3; /* Verde água pastel */
+            height: 1000vh;
+            padding: 0.01px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        nav .logo img {
+            max-width: 60%;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px auto; /* Centraliza a logo */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 20px 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.1em;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #c4eceb; /* Hover em verde água mais claro */
+        }
+
+        /* Conteúdo principal */
+        main {
+            flex: 1; /* Faz o conteúdo principal ocupar o espaço disponível */
+            margin-left: 270px;
+            padding: 20px;
+        }
+
+        main h1 {
+            color: #5aa6a4;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Área do flip */
+        .flip-container {
+            perspective: 1000px;
+            width: 100%;
+            display: flex;
+            align-items: center; /* Alinha verticalmente */
+            justify-content: flex-start; /* Alinha à esquerda */
+            gap: 20px; /* Espaço entre imagem e formulário */
+        }
+
+        .image-container img {
+            max-width: 150px; /* Tamanho maior */
+            height: auto;
+            border-radius: 50%; /* Imagem circular */
+            box-shadow: none; /* Remove sombra */
+            display: block;
+            margin: 0;
+        }
+
+        .card {
+            position: relative;
+            width: 60%;
+            height: auto;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg);
+            transition: transform 0.8s;
+        }
+
+        .card.flip {
+            transform: rotateY(180deg);
+        }
+
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility:hidden;
+            border-radius: 10px; 
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .face.back {
+            transform: rotateY(180deg);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%; 
+            
+        }
+       
+        form label {
+            font-weight: bold
+        }
+
+        form input,
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        form button {
+          background-color: #5aa6a4;
+          color: white;
+          border: none;
+          padding: 10px;
+          font-size: 1em;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          width: 104%; /* Faz o botão ter o mesmo tamanho das caixas de entrada */
+          text-align: center; /* Garante que o texto fique centralizado */
+          margin-top: 15px;
+        }
+
+        form button:hover {
+            background-color: #488c8a;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav {
+                width: 200px;
+            }
+
+            main {
+                margin-left: 220px;
+            }
+
+            .flip-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .image-container {
+                margin-bottom: 20px;
+            }
+
+            .card {
+                width: 100%;
+            }
+        }
+
+        .flip-container {
+    perspective: 1000px;
+    width: 100%;
+    display: flex;
+    align-items: center; /* Alinha o conteúdo verticalmente ao centro */
+    gap: 20px; /* Espaço entre a imagem e o formulário */
+}
+
+.image-container {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente a imagem */
+    justify-content: center; /* Alinha horizontalmente dentro do container */
+}
+
+.image-container img {
+    margin-top: 5px;
+    max-width: 250px; /* Aumenta o tamanho da imagem */
+    height: auto;
+    border-radius: 10px; /* Bordas arredondadas */
+    display: block;
+}
+
+
+
+    </style>
+</head>
+<body>
+<nav>
+<div class="logo">
+<img alt="Logo PetShop" src="img/logo.png"/>
+</div>
+<ul>
+<li><a href="index.html">Página Inicial</a></li>
+<li><a href="vendas.html">Produtos</a></li>
+<li><a href="#" id="toggleToCliente">Cadastro de Cliente</a></li>
+<li><a href="#" id="toggleToPet">Cadastro de Pets</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="mainTitle">Cadastro de Clientes</h1>
+<div class="flip-container">
+<div class="image-container">
+<img alt="Cadastro de Cliente" id="formImage" src="img/cliente.png"/>
+</div>
+<div class="card" id="card">
+<!-- Formulário de Cliente -->
+<div class="face front">
+<form action="cadastrar_cliente.php" method="POST">
+<label for="nomeCompleto">Nome Completo:</label>
+<input id="nomeCompleto" name="nomeCompleto" required="" type="text"/>
+<label for="cpf">CPF:</label>
+<input id="cpf" name="cpf" required="" type="text"/>
+<label for="email">E-mail:</label>
+<input id="email" name="email" required="" type="email"/>
+<label for="telefone">Telefone:</label>
+<input id="telefone" name="telefone" type="text"/>
+<label for="endereco">Endereço:</label>
+<textarea id="endereco" name="endereco" required=""></textarea>
+<button type="submit">Cadastrar Cliente</button>
+</form>
+</div>
+<!-- Formulário de Pet -->
+<div class="face back">
+<form action="cadastrar_pet.php" method="POST">
+<label for="nome">Nome do Pet e sobrenome do dono:</label>
+<input id="nome" name="nome" required="" type="text"/>
+<label for="tipo">Tipo (Cachorro, Gato):</label>
+<input id="tipo" name="tipo" type="text"/>
+<label for="idade">Idade(favor escrever anos ou meses):</label>
+<input id="idade" name="idade" type="text"/>
+<label for="dataNascimento">Data de Nascimento:</label>
+<input id="dataNascimento" name="dataNascimento" type="date"/>
+<label for="observacoes">Observações:</label>
+<textarea id="observacoes" name="observacoes"></textarea>
+<label for="cpf">CPF do Cliente:</label>
+<input id="cpf" name="cpf" required="" type="text"/>
+<button type="submit">Cadastrar Pet</button>
+</form>
+</div>
+</div>
+</div>
+</main>
+<footer>
+<p>© 2025 PetShop</p>
+</footer>
+<script>
+        const card = document.getElementById('card');
+        const mainTitle = document.getElementById('mainTitle');
+        const formImage = document.getElementById('formImage');
+
+        document.getElementById('toggleToPet').addEventListener('click', () => {
+            card.classList.add('flip');
+            mainTitle.textContent = 'Cadastro de Pets';
+            formImage.src = 'img/golden.png';
+            formImage.alt = 'Cadastro de Pet';
+        });
+
+        document.getElementById('toggleToCliente').addEventListener('click', () => {
+            card.classList.remove('flip');
+            mainTitle.textContent = 'Cadastro de Clientes';
+            formImage.src = './img/cliente.png';
+            formImage.alt = 'Cadastro de Cliente';
+        });
+
+        function validarCPF(cpf) {
+  cpf = cpf.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+  if (cpf.length !== 11) {
+    return false; // CPF deve ter 11 dígitos
+  }
+
+  // Verifica se todos os dígitos são iguais (ex: 111.111.111-11 é inválido)
+  if (/^(\d)\1+$/.test(cpf)) {
+    return false;
+  }
+
+  // Cálculo do primeiro dígito verificador
+  let soma = 0;
+  for (let i = 0; i < 9; i++) {
+    soma += parseInt(cpf.charAt(i)) * (10 - i);
+  }
+  let resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) {
+    resto = 0;
+  }
+  if (resto !== parseInt(cpf.charAt(9))) {
+    return false; // Primeiro dígito verificador inválido
+  }
+
+  // Cálculo do segundo dígito verificador
+  soma = 0;
+  for (let i = 0; i < 10; i++) {
+    soma += parseInt(cpf.charAt(i)) * (11 - i);
+  }
+  resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) {
+    resto = 0;
+  }
+  if (resto !== parseInt(cpf.charAt(10))) {
+    return false; // Segundo dígito verificador inválido
+  }
+
+  return true; // CPF válido
+}
+
+// Função para formatar o CPF e verificar sua validade
+const cpfInput = document.querySelector("#cpf");
+
+cpfInput.addEventListener('input', (e) => {
+  let value = cpfInput.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+  // Limita o número de caracteres para 11 (apenas os números do CPF)
+  if (value.length > 11) {
+    value = value.slice(0, 11);
+  }
+
+  // Adiciona os pontos e o traço conforme a formatação padrão do CPF
+  if (value.length > 3) {
+    value = value.slice(0, 3) + '.' + value.slice(3);
+  }
+  if (value.length > 7) {
+    value = value.slice(0, 7) + '.' + value.slice(7);
+  }
+  if (value.length > 11) {
+    value = value.slice(0, 11) + '-' + value.slice(11);
+  }
+
+  // Atualiza o valor do campo
+  cpfInput.value = value;
+
+  // Verifica a validade do CPF quando o usuário digitar 11 números
+  if (value.replace(/\D/g, '').length === 11) {
+    if (validarCPF(value)) {
+      console.log("CPF válido");
+      cpfInput.style.borderColor = "green"; // Mostra que o CPF é válido
+    } else {
+      console.log("CPF inválido");
+      cpfInput.style.borderColor = "red"; // Mostra que o CPF é inválido
+      alert("CPF inválido");
+    }
+  } else {
+    cpfInput.style.borderColor = ""; // Remove a borda de cor se não tiver 11 dígitos
+  }
+});
+    </script>
+
+<style>
+  body.dark-mode {
+    background-color: #060027;
+    color: #488c8a;
+  }
+  
+  .toggle-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: #eafafa;
+    border-radius: 50%;
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .toggle-button:hover {
+    transform: scale(1.1);
+    
+  }
+  
+  .toggle-button span {
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+  }
+  
+  body.dark-mode .toggle-button {
+    background-color: #060027;
+  }
+  
+  body.dark-mode .toggle-button span {
+    color: #f0f0f0;
+  }
+
+
+
+
+    /* Ajuste do botão do modo noturno */
+    .toggle-button {
+    position: fixed;
+    top: 15px; /* Ajuste de posição */
+    right: 15px; /* Mantém afastado da borda */
+    width: 50px;
+    height: 50px;
+    background-color: #eafafa;
+    border-radius: 50%;
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 999; /* Garante que fica acima de outros elementos */
+  }
+
+  .toggle-button:hover {
+    transform: scale(1.1);
+   
+  }
+
+  .toggle-button span {
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+  }
+
+  body.dark-mode .toggle-button {
+    background-color: #060027;
+  }
+
+  body.dark-mode .toggle-button span {
+    color: #f0f0f0;
+  }
+
+  /* Ajuste do título do cadastro para não ser sobreposto */
+  main {
+    flex: 1;
+    margin-left: 270px;
+    padding: 20px;
+    padding-top: 60px; /* Espaço extra para o botão não sobrepor o título */
+  }
+
+  @media (max-width: 768px) {
+    .toggle-button {
+      top: 10px; /* Ajuste menor para telas pequenas */
+      right: 10px;
+    }
+
+    main {
+      margin-left: 220px;
+      padding-top: 70px; /* Mais espaço para evitar sobreposição */
+    }
+  }
+
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Check for saved mode in LocalStorage and apply it
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      document.body.classList.add('dark-mode');
+    }
+
+    // Create and configure the toggle button
+    const toggleButton = document.createElement('div');
+    toggleButton.className = 'toggle-button';
+    const icon = document.createElement('span');
+    icon.textContent = '☀️'; // Default icon (sun for light mode)
+    toggleButton.appendChild(icon);
+    toggleButton.onclick = function () {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      icon.textContent = isDarkMode ? '🌙' : '☀️'; // Toggle between sun and moon icons
+      
+      // Save the current mode to LocalStorage
+      if (isDarkMode) {
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        localStorage.removeItem('darkMode');
+      }
+    };
+    document.body.appendChild(toggleButton);
+  });
+</script>
+</body>
+</html>

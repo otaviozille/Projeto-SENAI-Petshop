@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Happy Paws - Petshop</title>
+<link href="styles.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+    /* Estilos globais */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #eafafa; /* Azul claro pastel */
+      color: #333;
+    }
+
+    /* Menu lateral */
+    nav {
+      width: 250px;
+            background-color: #a2d5d3; /* Verde água pastel */
+            height: 1000vh;
+            padding: 0.01px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+    }
+
+    nav .logo img {
+      max-width: 60%;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px auto; /* Centraliza a logo */
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      margin: 20px 0;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1.2em;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: #c4eceb; /* Hover em verde água mais claro */
+    }
+
+    /* Conteúdo principal */
+    main {
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    main h2 {
+      color: #5aa6a4;
+    }
+
+    /* Estilos para a imagem de topo */
+    .imagem_topo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    .imagem_topo img {
+      max-width: 90%; /* Ajusta para caber na largura da tela */
+      height: auto; /* Mantém as proporções */
+      border-radius: 10px; /* Bordas arredondadas */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    }
+
+    /* Estilos do footer */
+    footer {
+      background-color: #a2d5d3;
+      padding: 20px;
+      text-align: center;
+      margin-top: 20px;
+      position: relative;
+      bottom: 0;
+      
+      margin-left: 250px;
+      
+    }
+
+    footer p {
+      margin: 0;
+      color: #333;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      nav {
+        width: 200px;
+      }
+
+      nav ul li a {
+        font-size: 0.9em;
+      }
+
+      .imagem_topo img {
+        width: 100%; /* Sempre ocupa a largura total do contêiner */
+        max-width: 800px; /* Limite para telas maiores */
+        height: auto; /* Mantém as proporções */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+     /* Ajuste de responsividade para a imagem de topo */
+     @media (max-width: 800px) {
+        .imagem_topo img {
+            max-width: 100%; /* Garante que a imagem seja maior em dispositivos menores */
+        }
+    }
+
+      footer {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+
+    /* Seção Sobre Nós */
+    .sobre_nos {
+      display: flex;
+      align-items: center;
+      gap: 20px; /* Espaçamento entre a imagem e o texto */
+      margin-top: 20px;
+      padding: 0;
+    }
+
+    .sobre_nos img {
+      max-width: 30%; /* Reduz a largura da imagem para 30% do contêiner */
+      height: auto; /* Mantém as proporções */
+      border-radius: 10px; /* Bordas arredondadas */
+      margin: 0;
+      display: block; /* Garante que a imagem não tenha comportamento inline */
+    }
+
+    .sobre_nos p {
+      font-family: 'Poppins', sans-serif;
+      flex: 1; /* Faz o texto ocupar o espaço restante */
+      font-size: 1.5em; /* Ajusta o tamanho do texto */
+      line-height: 1.6; /* Melhora o espaçamento entre linhas */
+    }
+    main h2, #sobre_nos h2 {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+  }
+
+    
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .sobre_nos {
+        flex-direction: column; /* Empilha a imagem e o texto em telas menores */
+        text-align: center; /* Centraliza o texto */
+      }
+
+      .sobre_nos img {
+        max-width: 80%; /* Aumenta a largura da imagem em telas menores */
+        margin-bottom: 15px; /* Espaço entre a imagem e o texto */
+      }
+
+      main h2 {
+        margin-left: 0; /* Remove a margem lateral em telas menores */
+        text-align: center; /* Centraliza o título */
+      }
+    }
+
+    /* Seção Nossos Serviços */
+    #nossos-servicos {
+      margin-top: 40px;
+    }
+
+    #nossos-servicos h2 {
+      color: #5aa6a4;
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+
+    .nossos-servicos {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap; /* Ajusta para telas menores */
+    }
+
+    .servico {
+      text-align: center;
+      max-width: 200px;
+    }
+
+    .servico img {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 10px;
+      
+      object-fit: cover;
+    }
+
+    .servico p {
+      font-family: 'Poppins', sans-serif;
+      margin-top: 10px;
+      font-size: 1.2em;
+      color: #333;
+    }
+
+  </style>
+</head>
+<body>
+<nav>
+<div class="logo">
+<img alt="Logo Happy Paws" src="img/logo.png"/>
+</div>
+<ul>
+<li><a href="cadastros.html">Cadastro de Clientes/Pets</a></li>
+<li><a href="#sobre-nos">Sobre Nós</a></li>
+<li><a href="#nossos-servicos">Nossos Serviços</a></li>
+<li><a href="vendas.html">Produtos</a></li>
+</ul>
+</nav>
+<main>
+<section>
+<div class="imagem_topo">
+<img alt="Bem-Vindo ao Happy Paws" src="./img/Bem-Vindo ao Happy Paws.png"/>
+</div>
+<h2 id="sobre-nos">Sobre nós</h2>
+<div class="sobre_nos">
+<img alt="Imagem Sobre Nós" src="./img/lulu.png"/>
+<p>
+          O Happy Paws é um petshop dedicado a cuidar com amor e carinho dos seus bichinhos. 
+          Aqui você encontra tudo o que precisa para o bem-estar do seu pet!
+        </p>
+</div>
+</section>
+
+<!-- Seção Nossos Serviços -->
+<section id="nossos-servicos">
+  <h2>Nossos Serviços</h2>
+  <div class="nossos-servicos">
+    <div class="servico">
+      <img src="./img/cachorro.jpg" alt="Cachorro feliz" />
+      <p>Banho e Tosa para seus pets, cuidado com higiene e estética.</p>
+    </div>
+    <div class="servico">
+      <img src="./img/gato.png" alt="Gato relaxando" />
+      <p>Atendimento especial para cuidar dos seus pets, incluindo cuidados veterinários.</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+<p>© 2025 Happy Paws - Todos os direitos reservados.</p>
+</footer>
+
+<style>
+   body.dark-mode {
+    background-color: #060027;
+    color: #488c8a;
+  }
+  body.dark-mode #nossos-servicos p{
+    color: #488c8a;
+  }
+  .toggle-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: #eafafa;
+    border-radius: 50%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .toggle-button:hover {
+    transform: scale(1.1);
+    
+  }
+  
+  .toggle-button span {
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+  }
+  
+  body.dark-mode .toggle-button {
+    background-color: #060027;
+  }
+  
+  body.dark-mode .toggle-button span {
+    color: #f0f0f0;
+  }
+  
+    /* Ajuste da posição do botão no modo noturno em telas pequenas */
+    @media (max-width: 768px) {
+        .toggle-button {
+            top: 15px; /* Reduz o espaçamento superior em telas menores */
+            right: 15px; /* Reduz o espaçamento lateral em telas menores */
+        }
+    }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Check for saved mode in LocalStorage and apply it
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      document.body.classList.add('dark-mode');
+    }
+
+    // Create and configure the toggle button
+    const toggleButton = document.createElement('div');
+    toggleButton.className = 'toggle-button';
+    const icon = document.createElement('span');
+    icon.textContent = '☀️'; // Default icon (sun for light mode)
+    toggleButton.appendChild(icon);
+    toggleButton.onclick = function () {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      icon.textContent = isDarkMode ? '🌙' : '☀️'; // Toggle between sun and moon icons
+      
+      // Save the current mode to LocalStorage
+      if (isDarkMode) {
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        localStorage.removeItem('darkMode');
+      }
+    };
+    document.body.appendChild(toggleButton);
+  });
+</script>
+</body>
+</html>
